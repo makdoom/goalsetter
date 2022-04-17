@@ -30,10 +30,10 @@ const registerUser = asyncHandler(async (req, res) => {
   const newUser = await User.create({ name, email, password: hashedPassword });
   if (newUser) {
     res.status(201).json({
-      _id: newUser.id,
+      id: newUser.id,
       name: newUser.name,
       email: newUser.email,
-      token: generateToken(user.id),
+      token: generateToken(newUser.id),
     });
   } else {
     res.status(400);

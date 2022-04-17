@@ -1,7 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, userRegistration } from "../features/auth/authSlice";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const currentUser = useSelector(selectUser);
+
   const {
     register,
     handleSubmit,
@@ -11,7 +18,10 @@ const Register = () => {
   // Submit handler
   const submitHandler = (data) => {
     console.log(data);
+    dispatch(userRegistration(data));
   };
+
+  console.table(currentUser);
 
   return (
     <div className="flex gap-2 flex-col justify-center items-center border m-4 w-4/5 md:max-w-[400px] p-8 bg-bgLightPrimary rounded-lg shadow-lg">
