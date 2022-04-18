@@ -9,7 +9,7 @@ module.exports = {
         bgDarkPrimary: "#0f172a",
         bgDarkSecondary: "#1e293b",
         bgLightPrimary: "#ffffff",
-        bgLightSecondary: "#f4f6f8",
+        bgLightSecondary: "#f6f6f7",
         // bgLightSecondary: "#f2f5f5",
       },
     },
