@@ -1,21 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  reset,
-  selectUser,
-  userRegistration,
-} from "../features/auth/authSlice";
+
 import { useEffect } from "react";
 import Spinner from "../components/Spinner";
+import { registerUser, selectUser } from "../features/auth/authSlice";
+import { userRegistration } from "../features/auth/authService";
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isLoading, isError, user, isSuccess, message } =
-    useSelector(selectUser);
+  const { user, isError, isLoading, message } = useSelector(selectUser);
 
+  // React hook form
   const {
     register,
     handleSubmit,
@@ -29,10 +27,10 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (isSuccess || user) return navigate("/");
-
-    // dispatch(reset());
-  }, [user, isError, message, isSuccess, navigate, dispatch]);
+    if (user) {
+      navigate("/");
+    }
+  }, [navigate, user]);
 
   return (
     <>

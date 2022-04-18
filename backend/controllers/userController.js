@@ -1,4 +1,3 @@
-const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
@@ -39,6 +38,8 @@ exports.registerUser = async (req, res, next) => {
         name: newUser.name,
         email: newUser.email,
         token: generateToken(newUser.id),
+        statusCode: 200,
+        success: true,
       });
     }
   } catch (error) {

@@ -1,30 +1,73 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { authService } from "./authService";
 
 // Get user from localstorage
-const user = JSON.parse(localStorage.getItem(auth));
+const user = JSON.parse(localStorage.getItem("authUser"));
 
 const initialState = {
   user: user ? user : null,
   isError: false,
-  isSuccess: false,
   isLoading: false,
   message: "",
 };
+
+// // Register user
+// export const registerUser = createAsyncThunk(
+//   "auth/register",
+//   async (userData, thunkAPI) => {
+//     try {
+//       return await authService.userRegistration(userData);
+//     } catch (error) {
+//       console.log(error.response);
+//       return thunkAPI.rejectWithValue(error?.response?.data?.error);
+//     }
+//   }
+// );
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // reducers goes here
     reset: (state, action) => {
       state.isError = false;
       state.isSuccess = false;
       state.isLoading = false;
       state.message = "";
     },
+    setError: (state, action) => {
+      state.isError = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+    setMessage: (state, action) => {
+      state.message = action.payload;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(registerUser.pending, (state, action) => {
+  //       state.isLoading = true;
+  //     })
+  //     .addCase(registerUser.fulfilled, (state, action) => {
+  //       state.isSuccess = true;
+  //       state.isLoading = false;
+  //       state.user = action.payload;
+  //     })
+  //     .addCase(registerUser.rejected, (state, action) => {
+  //       state.isError = true;
+  //       state.isLoading = false;
+  //       state.message = action.payload;
+  //       state.user = null;
+  //     });
+  // },
 });
 
-export const {} = authSlice.actions;
+export const selectUser = (state) => state.auth;
+
+export const { setError, setLoading, setMessage, setUser } = authSlice.actions;
 
 export default authSlice.reducer;
