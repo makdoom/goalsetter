@@ -11,7 +11,7 @@ import Register from "./pages/Register";
 
 function App() {
   return (
-    <div className="flex w-screen h-screen justify-center items-center bg-bgLightSecondary font-poppins">
+    <div className="font-poppins">
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
