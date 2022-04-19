@@ -38,11 +38,16 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+// Logout user
+export const logout = createAsyncThunk("auth/logout", async () => {
+  return await authService.logout();
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    reset: (state, action) => {
+    reset: (state) => {
       state.isError = false;
       state.isSuccess = false;
       state.isLoading = false;
@@ -77,6 +82,9 @@ const authSlice = createSlice({
         state.isError = true;
         state.isLoading = false;
         state.message = action.payload;
+        state.user = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
         state.user = null;
       });
   },

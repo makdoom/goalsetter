@@ -24,5 +24,10 @@ const login = async (userData) => {
   return data;
 };
 
-const authService = { userRegistration, login };
+// Logout User
+const logout = async () => {
+  localStorage.removeItem("authUser");
+};
+
+const authService = { userRegistration, login, logout };
 export default authService;
