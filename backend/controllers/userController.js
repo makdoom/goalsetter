@@ -63,6 +63,8 @@ exports.loginUser = async (req, res, next) => {
         name: user.name,
         email: user.email,
         token: generateToken(user.id),
+        statusCode: 200,
+        success: true,
       });
     } else {
       return next(
