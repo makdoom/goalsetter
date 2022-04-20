@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import GoalItem from "../components/GoalItem";
 import Header from "../components/Header";
 import { selectUser } from "../features/auth/authSlice";
 
@@ -33,7 +34,16 @@ const Dashboard = () => {
           </form>
         </div>
 
-        <div className="w-full mt-8 border">card goes here</div>
+        <div className="w-full mt-20 flex items-center gap-10 flex-wrap">
+          <GoalItem />
+          <GoalItem />
+          <GoalItem />
+          <GoalItem />
+          <GoalItem />
+          <GoalItem />
+          <GoalItem />
+          <GoalItem />
+        </div>
       </div>
     </div>
   );
