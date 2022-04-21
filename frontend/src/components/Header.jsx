@@ -8,7 +8,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <div className=" relative w-full px-6 border-b md:px-48 py-1 flex justify-between items-center ">
+    <div className="relative w-full px-6 border-b md:px-48 py-1 flex justify-between items-center ">
       <h3 className="text-3xl font-bold text-primaryColor tracking-wide">
         iNotes
       </h3>

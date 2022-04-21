@@ -9,7 +9,7 @@ module.exports = {
         "8xl": "90rem",
       },
       colors: {
-        primaryColor: "#F24A72",
+        primaryColor: "#3b82f6",
       },
     },
   },
