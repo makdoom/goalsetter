@@ -2,9 +2,9 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const colors = require("colors");
 const morgan = require("morgan");
-// const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDB = require("./config/db");
 const errorHandler = require("./utils/error");
+
 // Connection to DB
 connectDB();
 
@@ -17,8 +17,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
 // Routes
-app.use("/api/goals", require("./routes/goalRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/goals", require("./routes/goalRoutes"));
 app.use(errorHandler);
 
 // Server lister
