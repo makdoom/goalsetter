@@ -5,6 +5,12 @@ module.exports = {
       fontFamily: {
         poppins: ["Poppins"],
       },
+      maxWidth: {
+        "8xl": "90rem",
+      },
+      colors: {
+        primaryColor: "#F24A72",
+      },
     },
   },
   plugins: [],
