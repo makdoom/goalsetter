@@ -10,8 +10,8 @@ const Dashboard = () => {
 
       {showModal && (
         <div className="transition-all duration-200 ease-linear flex justify-center items-center h-screen fixed top-0 right-0 left-0 z-50 w-full bg-gray-300 bg-opacity-50">
-          <div class="transition-all duration-200 ease-linear relative p-4 w-full max-w-xl h-full md:h-auto">
-            <div class="relative bg-white rounded-xl shadow-lg ">
+          <div class="transition-all duration-200 ease-linear relative p-4 w-full max-w-xl h-auto">
+            <div class=" relative bg-white rounded-xl shadow-lg ">
               <div class="flex justify-between items-start  p-5 rounded-t border-b border-gray-100 ">
                 <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl ">
                   Add Note
@@ -61,7 +61,7 @@ const Dashboard = () => {
       <button
         type="button"
         onClick={() => setShowModal(!showModal)}
-        className="absolute bottom-[70px] right-[180px] bg-blue-500 p-4 cursor-pointer transition-all duration-200 ease-linear hover:bg-blue-600  rounded-full"
+        className="fixed bottom-[50px] right-[50px] md:bottom-[70px] md:right-[180px] bg-blue-500 p-4 cursor-pointer transition-all duration-200 ease-linear hover:bg-blue-600  rounded-full"
       >
         <HiOutlinePlus className=" stroke-current text-3xl text-white font-semibold" />
       </button>
