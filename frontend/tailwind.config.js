@@ -11,6 +11,9 @@ module.exports = {
       colors: {
         primaryColor: "#3b82f6",
       },
+      flex: {
+        0.4: "0.4 0.4 0%",
+      },
     },
   },
   plugins: [],
