@@ -55,7 +55,7 @@ const Header = () => {
         />
       </div>
       {showNavigation && (
-        <div className=" transition-all duration-150 ease-linear md:hidden absolute gap-4 flex flex-col shadow-md right-6 w-40 rounded-lg top-[75px] p-4 px-4 border bg-white">
+        <div className="bg-white z-50 transition-all duration-150 ease-linear md:hidden absolute gap-4 flex flex-col shadow-md right-6 w-40 rounded-lg top-[75px] p-4 px-4 border">
           <p
             onClick={() => {
               setShowNavigation(!showNavigation);
@@ -74,8 +74,8 @@ const Header = () => {
           >
             Login
           </p>
-          <div className="flex items-center">
-            <p className="hover:text-primaryColor transition duration-200 ease-linear font-medium">
+          <div className="flex hover:text-primaryColor items-center">
+            <p className="transition duration-200 ease-linear font-medium">
               Darkmode
             </p>
             <HiOutlineSun

@@ -7,7 +7,7 @@ const Register = () => {
         <h3 className="uppercase text-4xl font-semibold tracking-wide text-primaryColor">
           Register
         </h3>
-        <div className="flex flex-col w-4/5 my-4 gap-3">
+        <div className="flex flex-col w-[90%] my-4 gap-3">
           <div className="mb-2">
             <label className="mb-1 text-gray-600" htmlFor="email">
               Name
@@ -47,7 +47,7 @@ const Register = () => {
         </div>
         <button
           type="submit"
-          className="bg-primaryColor font-semibold w-4/5 py-3 text-white tracking-wide rounded-lg"
+          className="bg-primaryColor font-semibold w-[90%] py-3 text-white tracking-wide rounded-lg"
         >
           Register
         </button>
