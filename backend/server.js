@@ -3,7 +3,6 @@ const dotenv = require("dotenv").config();
 const colors = require("colors");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
-const errorHandler = require("./utils/error");
 
 // Connection to DB
 connectDB();
@@ -19,7 +18,6 @@ app.use(morgan("dev"));
 // Routes
 app.use("/api/v1/users", require("./routes/userRoutes"));
 app.use("/api/v1/notes", require("./routes/noteRoutes"));
-app.use(errorHandler);
 
 // Server lister
 app.listen(PORT, () =>
