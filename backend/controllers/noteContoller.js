@@ -1,39 +1,50 @@
 const asyncHandler = require("express-async-handler");
-const Goal = require("../models/goalModel");
+const Note = require("../models/noteModel");
 const User = require("../models/userModel");
+const ErrorResponse = require("../utils/errorResponse");
 
-// @desc    All goals
-// @route   GET /api/goals
+// @desc    All Notes
+// @route   GET /api/notes
 // @access  Private
-const getNotes = asyncHandler(async (req, res) => {
-  const goals = await Goal.find({ user: req.user.id });
+const getNotes = async (req, res, next) => {
+  try {
+    const notes = await Note.find({ user: req.user.id });
 
-  res.status(200).json(goals);
-});
-
-// @desc    Set goals
-// @route   POST /api/goals
-// @access  Private
-const createNote = asyncHandler(async (req, res) => {
-  if (!req.body.text) {
-    res.status(400);
-    throw new Error("Please add body");
+    res.status(200).json({ notes, statusCode: 200, success: true });
+  } catch (error) {
+    next(error);
   }
+};
 
-  const newGoal = await Goal.create({
-    user: req.user.id,
-    text: req.body.text,
-  });
-
-  res.status(200).json(newGoal);
-});
-
-// @desc    Update goals
-// @route   UPDATE /api/goals
+// @desc   Create Note
+// @route   POST /api/note
 // @access  Private
-const updateNote = asyncHandler(async (req, res) => {
+const createNote = async (req, res, next) => {
+  const { title, description } = req.body;
+  try {
+    if (!title || !description) {
+      return next(new ErrorResponse("Please provide all the fields", 400));
+    }
+
+    const newNote = await Note.create({
+      user: req.user.id,
+      title,
+      description,
+      isBookmarked: false,
+    });
+
+    res.status(200).json({ note: newNote, statusCode: 200, success: true });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Update note
+// @route   UPDATE /api/note
+// @access  Private
+const updateNote = async (req, res) => {
   const { id } = req.params;
-  const goal = await Goal.findById(id);
+  const goal = await Note.findById(id);
 
   if (!goal) {
     res.status(400);
@@ -53,17 +64,17 @@ const updateNote = asyncHandler(async (req, res) => {
   }
 
   // Update the goal
-  const updatedGoal = await Goal.findByIdAndUpdate(id, req.body, { new: true });
+  const updatedGoal = await Note.findByIdAndUpdate(id, req.body, { new: true });
 
   res.status(200).json(updatedGoal);
-});
+};
 
 // @desc    delete goals
 // @route   DELEET /api/goals
 // @access  Private
 const deleteNote = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const isGoalExist = await Goal.findById(id);
+  const isGoalExist = await Note.findById(id);
 
   if (!isGoalExist) {
     res.status(400);

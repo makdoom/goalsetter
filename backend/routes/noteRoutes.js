@@ -3,7 +3,7 @@ const {
   createNote,
   updateNote,
   deleteNote,
-} = require("../controllers/goalController");
+} = require("../controllers/noteContoller");
 const protect = require("../middleware/authMiddelware");
 
 const router = require("express").Router();
