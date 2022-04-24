@@ -1,8 +1,8 @@
 const {
   getNotes,
   createNote,
-  updateNotes,
-  deleteNotes,
+  updateNote,
+  deleteNote,
 } = require("../controllers/goalController");
 const protect = require("../middleware/authMiddelware");
 
