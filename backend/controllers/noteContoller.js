@@ -44,58 +44,61 @@ const createNote = async (req, res, next) => {
 // @access  Private
 const updateNote = async (req, res) => {
   const { id } = req.params;
-  const goal = await Note.findById(id);
 
-  if (!goal) {
-    res.status(400);
-    throw new Error("Goal not found");
+  try {
+    const note = await Note.findById(id);
+
+    if (!note) return next(new ErrorResponse("Note not found", 404));
+
+    // Check for user
+    if (!req.user) return next(new ErrorResponse("User not found", 404));
+
+    // Make sure only logged in user can update/delete goal
+    if (note.user.toString() !== req.user.id) {
+      return next(new ErrorResponse("User unauthorized", 404));
+    }
+
+    // Update the goal
+    const updatedNote = await Note.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    res.status(200).json(updatedNote);
+  } catch (error) {
+    next(error);
   }
-
-  // Check for user
-  if (!req.user) {
-    res.status(404);
-    throw new Error("User not found");
-  }
-
-  // Make sure only logged in user can update/delete goal
-  if (goal.user.toString() !== req.user.id) {
-    res.status(401);
-    throw new Error("User not authorized");
-  }
-
-  // Update the goal
-  const updatedGoal = await Note.findByIdAndUpdate(id, req.body, { new: true });
-
-  res.status(200).json(updatedGoal);
 };
 
 // @desc    delete goals
 // @route   DELEET /api/goals
 // @access  Private
-const deleteNote = asyncHandler(async (req, res) => {
+const deleteNote = async (req, res) => {
   const { id } = req.params;
-  const isGoalExist = await Note.findById(id);
 
-  if (!isGoalExist) {
-    res.status(400);
-    throw new Error("Goal not found");
+  try {
+    const note = await Note.findById(id);
+
+    if (!note) {
+      return next(new ErrorResponse("Note not found", 404));
+    }
+
+    // Check for user
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      res.status(404);
+      throw new Error("User not found");
+    }
+
+    // Make sure only logged in user can update/delete goal
+    if (note.user.toString() !== req.user.id) {
+      return next(new ErrorResponse("User not found", 404));
+    }
+
+    await note.remove();
+    res.status(200).json({ id, message: `Note deleted successfully` });
+  } catch (error) {
+    next(error);
   }
-
-  // Check for user
-  const user = await User.findById(req.user.id);
-  if (!user) {
-    res.status(404);
-    throw new Error("User not found");
-  }
-
-  // Make sure only logged in user can update/delete goal
-  if (goal.user.toString() !== req.user.id) {
-    res.status(401);
-    throw new Error("User not authorized");
-  }
-
-  await isGoalExist.remove();
-  res.status(200).json({ id, message: `Goal deleted successfully` });
-});
+};
 
 module.exports = { getNotes, createNote, updateNote, deleteNote };

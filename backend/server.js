@@ -17,8 +17,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
 // Routes
-app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/notes", require("./routes/noteRoutes"));
+app.use("/api/v1/users", require("./routes/userRoutes"));
+app.use("/api/v1/notes", require("./routes/noteRoutes"));
 app.use(errorHandler);
 
 // Server lister
