@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, selectUser } from "../features/auth/authSlice";
@@ -6,6 +6,8 @@ import { useEffect } from "react";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector(selectUser);
 
   // React hook form
   const {
@@ -20,9 +22,14 @@ const Register = () => {
     dispatch(registerUser(data));
   };
 
+  useEffect(() => {
+    if (user) navigate("/");
+  }, [navigate, user]);
+
   return (
     <div className="w-screen border px-8 md:px-48 h-[93vh] flex justify-center items-center">
       <form
+        action="POST"
         onSubmit={handleSubmit(submitHandler)}
         className="w-full md:max-w-[400px] border px-4 py-10 flex flex-col justify-center items-center shadow-md rounded-md gap-2 "
       >
