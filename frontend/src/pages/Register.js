@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const handleSubmit = () => {};
   return (
     <div className="w-screen border px-8 md:px-48 h-[93vh] flex justify-center items-center">
       <div className="w-full md:max-w-[400px] border px-4 py-10 flex flex-col justify-center items-center shadow-md rounded-md gap-2 ">
@@ -46,7 +47,8 @@ const Register = () => {
           </div>
         </div>
         <button
-          type="submit"
+          type="button"
+          onClick={handleSubmit}
           className="bg-primaryColor font-semibold w-[90%] py-3 text-white tracking-wide rounded-lg"
         >
           Register
