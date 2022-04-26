@@ -2,12 +2,20 @@ import axios from "axios";
 
 const API_URL = "/api/v1/users/";
 
+// User Register API service
 const register = async (userData) => {
-  try {
-    const { data } = await axios.post(API_URL, userData);
-    console.log(data);
-  } catch (error) {
-    console.log(error);
+  const { data } = await axios.post(API_URL, userData);
+  console.log(data);
+
+  if (data.statusCode === 200 && data.success) {
+    localStorage.setItem(
+      "authUser",
+      JSON.stringify({
+        email: data.email,
+        name: data.name,
+        token: data.token,
+      })
+    );
   }
 };
 

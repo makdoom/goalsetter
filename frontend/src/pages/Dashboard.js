@@ -1,9 +1,19 @@
 import MasonryLayout from "../components/MasonaryLayout";
 import { HiOutlinePlus, HiOutlineX } from "react-icons/hi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
+  const { user } = useSelector(selectUser);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) return navigate("/login");
+  }, [navigate, user]);
+
   return (
     <div className=" relative w-full px-8 xl:px-48 my-4 min-h-[88vh]">
       <MasonryLayout />

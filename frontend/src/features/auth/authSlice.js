@@ -20,7 +20,7 @@ export const registerUser = createAsyncThunk(
       await authService.register(userData);
     } catch (error) {
       console.log(error.response);
-      // return thunkAPI.rejectWithValue()
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -36,9 +36,43 @@ const authSlice = createSlice({
       state.isSuccess = false;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(registerUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isSuccess = true;
+        state.isLoading = false;
+        state.user = action.payload;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoading = false;
+        state.message = action.payload;
+        state.user = null;
+      });
+    //   .addCase(loginUser.pending, (state, action) => {
+    //     state.isLoading = true;
+    //   })
+    //   .addCase(loginUser.fulfilled, (state, action) => {
+    //     state.isSuccess = true;
+    //     state.isLoading = false;
+    //     state.user = action.payload;
+    //   })
+    //   .addCase(loginUser.rejected, (state, action) => {
+    //     state.isError = true;
+    //     state.isLoading = false;
+    //     state.message = action.payload;
+    //     state.user = null;
+    //   })
+    //   .addCase(logout.fulfilled, (state) => {
+    //     state.user = null;
+    //   });
+  },
 });
 
-export const selectedUser = (state) => state.auth;
+export const selectUser = (state) => state.auth;
 
 export const { reset } = authSlice.actions;
 
