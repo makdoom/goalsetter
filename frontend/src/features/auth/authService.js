@@ -17,6 +17,8 @@ const register = async (userData) => {
       })
     );
   }
+
+  return data;
 };
 
 const authService = { register };

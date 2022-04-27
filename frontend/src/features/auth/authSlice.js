@@ -17,10 +17,10 @@ export const registerUser = createAsyncThunk(
   "auth/register",
   async (userData, thunkAPI) => {
     try {
-      await authService.register(userData);
+      return await authService.register(userData);
     } catch (error) {
       console.log(error.response);
-      return thunkAPI.rejectWithValue();
+      return thunkAPI.rejectWithValue("Error");
     }
   }
 );

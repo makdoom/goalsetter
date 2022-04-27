@@ -18,12 +18,14 @@ const Register = () => {
 
   // Submit handler
   const submitHandler = (data) => {
-    console.log(data);
     dispatch(registerUser(data));
   };
 
   useEffect(() => {
-    if (user) navigate("/");
+    if (user) {
+      console.log(user);
+      return navigate("/");
+    }
   }, [navigate, user]);
 
   return (
