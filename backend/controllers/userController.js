@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const ErrorResponse = require("../utils/errorResponse");
+const asyncHandler = require("express-async-handler");
+const createError = require("http-errors");
 
 // @desc    Register a new user
 // @route   POST /api/users
@@ -10,7 +12,7 @@ exports.registerUser = async (req, res, next) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
-    return next(new ErrorResponse("Please provide all the fields", 400));
+    return next(createError.BadRequest("Please provide all the fields"));
   }
 
   try {
@@ -18,7 +20,7 @@ exports.registerUser = async (req, res, next) => {
     const userExists = await User.findOne({ email });
 
     if (userExists) {
-      return next(new ErrorResponse("Email already exists", 400));
+      next(createError.Conflict("Email already exists"));
     }
 
     // Hasing password
@@ -43,7 +45,11 @@ exports.registerUser = async (req, res, next) => {
       });
     }
   } catch (error) {
-    next(error);
+    next(
+      createError.InternalServerError(
+        "Internal server error, please try again later"
+      )
+    );
   }
 };
 
@@ -52,6 +58,10 @@ exports.registerUser = async (req, res, next) => {
 // @access  Public
 exports.loginUser = async (req, res, next) => {
   const { email, password } = req.body;
+
+  if (!email || !password) {
+    return next(createError.BadRequest("Please provide all the fields"));
+  }
 
   try {
     // Check for user email
@@ -68,11 +78,15 @@ exports.loginUser = async (req, res, next) => {
       });
     } else {
       return next(
-        new ErrorResponse("Invalid Credentials, please try again", 400)
+        createError.Unauthorized("Invalid Credentials, please try again")
       );
     }
   } catch (error) {
-    next(error);
+    next(
+      createError.InternalServerError(
+        "Internal server error, please try again later"
+      )
+    );
   }
 };
 
