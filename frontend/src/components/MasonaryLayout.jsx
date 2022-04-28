@@ -22,6 +22,18 @@ const MasonryLayout = () => {
       <NoteCard />
       <NoteCard />
       <NoteCard />
+      <NoteCard />
+      <NoteCard />
+      <NoteCard />
+      <NoteCard />
+      <NoteCard />
+      <NoteCard />
+      <NoteCard />
+      <NoteCard />
+      <NoteCard />
+      <NoteCard />
+      <NoteCard />
+      <NoteCard />
     </Masonry>
   );
 };

@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { selectUser } from "../features/auth/authSlice";
 
 const Login = () => {
+  const { user } = useSelector(selectUser);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) return navigate("/");
+  }, [navigate, user]);
   return (
     <div className="w-screen border px-8 md:px-48 h-[93vh] flex justify-center items-center">
       <div className="w-full md:max-w-[400px] border px-4 py-10 flex flex-col justify-center items-center shadow-md rounded-md gap-2 ">
