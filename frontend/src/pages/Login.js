@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { BsX } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser, reset, selectUser } from "../features/auth/authSlice";
+import ButtonSpinner from "../components/ButtonSpinner";
 
 const Login = () => {
   const { user, message, isSuccess, isError, isLoading } =
@@ -35,11 +36,11 @@ const Login = () => {
   }, [navigate, user, isError, message, dispatch, reset]);
 
   return (
-    <div className="w-screen border px-8 md:px-48 h-[93vh] flex justify-center items-center">
+    <div className="w-screen border px-8 md:px-48 h-screen bg-secondaryColor flex justify-center items-center">
       <form
         action="POST"
         onSubmit={handleSubmit(submitHandler)}
-        className="w-full md:max-w-[400px] border px-4 py-10 flex flex-col justify-center items-center shadow-md rounded-md gap-2 "
+        className="w-full  bg-white md:max-w-[400px] border px-4 py-10 flex flex-col justify-center items-center shadow-md rounded-md gap-2 "
       >
         <h3 className="uppercase text-4xl font-semibold tracking-wide text-primaryColor">
           Login
@@ -94,9 +95,11 @@ const Login = () => {
         </div>
         <button
           type="submit"
+          disabled={isLoading}
           className="bg-primaryColor font-semibold w-[90%] py-3 text-white tracking-wide rounded-lg"
         >
           Login
+          {isLoading && <ButtonSpinner />}
         </button>
         <p className="mt-2 text-gray-500">
           Don't have an Account ?{" "}

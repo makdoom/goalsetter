@@ -4,15 +4,18 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
-  const { user } = useSelector(selectUser);
+  const { user, isLoading } = useSelector(selectUser);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) return navigate("/login");
   }, [navigate, user]);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="bg-secondaryColor pt-12">

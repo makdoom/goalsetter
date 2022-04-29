@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser, reset, selectUser } from "../features/auth/authSlice";
 import { useEffect } from "react";
 import { BsX } from "react-icons/bs";
+import Spinner from "../components/Spinner";
+import ButtonSpinner from "../components/ButtonSpinner";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -27,14 +29,22 @@ const Register = () => {
       console.log(user);
       return navigate("/");
     }
-  }, [navigate, user]);
+
+    if (isError || message) {
+      setTimeout(() => {
+        dispatch(reset());
+      }, 3500);
+    }
+  }, [navigate, user, dispatch, isError, message, reset]);
+
+  if (isLoading) return <Spinner />;
 
   return (
-    <div className="w-screen border px-8 md:px-48 h-[93vh] flex justify-center items-center">
+    <div className="w-screen border px-8 md:px-48 h-screen bg-secondaryColor flex justify-center items-center">
       <form
         action="POST"
         onSubmit={handleSubmit(submitHandler)}
-        className="w-full md:max-w-[400px] border px-4 py-10 flex flex-col justify-center items-center shadow-md rounded-md gap-2 "
+        className="w-full md:max-w-[400px] bg-white border px-4 py-10 flex flex-col justify-center items-center shadow-md rounded-md gap-2 "
       >
         <h3 className="uppercase text-4xl font-semibold tracking-wide text-primaryColor">
           Register
@@ -129,6 +139,7 @@ const Register = () => {
           className="bg-primaryColor font-semibold w-[90%] py-3 text-white tracking-wide rounded-lg"
         >
           Register
+          {isLoading && <ButtonSpinner />}
         </button>
         <p className="mt-2 text-gray-500">
           Already have an Account ?{" "}
