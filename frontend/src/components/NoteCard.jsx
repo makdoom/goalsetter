@@ -4,7 +4,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 
 const NoteCard = () => {
   return (
-    <div className="border m-3 my-8 p-5 rounded-lg cursor-pointer transition-all duration-200 ease-linear hover:scale-105 hover:shadow-lg">
+    <div className="shadow-sm bg-white m-3 my-8 p-5 rounded-lg cursor-pointer transition-all duration-200 ease-linear hover:scale-105 hover:shadow-lg">
       <div className="flex justify-between items-center mb-4">
         <div className="text-2xl font-medium">Title</div>
         <HiOutlineBookmark className="stroke-current text-blue-400 text-lg transition-all duration-200 ease-linear hover:text-blue-500 cursor-pointer hover:scale-110" />

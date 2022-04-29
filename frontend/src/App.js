@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 
 function App() {
   return (
-    <div className="font-poppins">
+    <div className="relative bg-secondaryColor font-poppins">
       <Router>
         <Header />
         <Routes>

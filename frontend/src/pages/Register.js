@@ -1,13 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser, selectUser } from "../features/auth/authSlice";
+import { registerUser, reset, selectUser } from "../features/auth/authSlice";
 import { useEffect } from "react";
+import { BsX } from "react-icons/bs";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector(selectUser);
+  const { user, message, isLoading, isError } = useSelector(selectUser);
 
   // React hook form
   const {
@@ -38,6 +39,16 @@ const Register = () => {
         <h3 className="uppercase text-4xl font-semibold tracking-wide text-primaryColor">
           Register
         </h3>
+        {message && (
+          <div className="flex justify-between items-center w-[90%] border mt-2 p-2 px-3 text-sm rounded-lg bg-red-100 text-red-600">
+            <p>{message}</p>
+            <BsX
+              fontSize={25}
+              className="cursor-pointer"
+              onClick={() => dispatch(reset())}
+            />
+          </div>
+        )}
         <div className="flex flex-col w-[90%] my-4 gap-3">
           <div className="mb-2">
             <label className="mb-1 text-gray-600" htmlFor="email">
@@ -47,8 +58,15 @@ const Register = () => {
               type="text"
               name="name"
               {...register("name", { required: true })}
-              className="w-full px-3 py-2 border-2 transition-all duration-100 ease-linear focus-within:border-primaryColor rounded-lg outline-none"
+              className={`w-full px-3 py-2 border-2 transition-all duration-100 ease-linear focus-within:border-primaryColor rounded-lg outline-none  ${
+                errors.name && "border-red-500 focus-within:border-red-500 "
+              }`}
             />
+            {errors.name && (
+              <span className="text-sm text-red-600 mt-1">
+                The Name field is required
+              </span>
+            )}
           </div>
           <div className="mb-2">
             <label className="mb-1 text-gray-600" htmlFor="email">
@@ -58,8 +76,15 @@ const Register = () => {
               type="email"
               name="email"
               {...register("email", { required: true })}
-              className="w-full px-3 py-2 border-2 transition-all duration-100 ease-linear focus-within:border-primaryColor rounded-lg outline-none"
+              className={`w-full px-3 py-2 border-2 transition-all duration-100 ease-linear focus-within:border-primaryColor rounded-lg outline-none  ${
+                errors.email && "border-red-500 focus-within:border-red-500 "
+              }`}
             />
+            {errors.email && (
+              <span className="text-sm text-red-600 mt-1">
+                The Email field is required
+              </span>
+            )}
           </div>
           <div className="mb-2">
             <label className="mb-1 text-gray-600" htmlFor="email">
@@ -69,8 +94,15 @@ const Register = () => {
               type="password"
               name="password"
               {...register("password", { required: true })}
-              className="w-full px-3 py-2 border-2 transition-all duration-100 ease-linear focus-within:border-primaryColor rounded-lg outline-none"
+              className={`w-full px-3 py-2 border-2 transition-all duration-100 ease-linear focus-within:border-primaryColor rounded-lg outline-none  ${
+                errors.password && "border-red-500 focus-within:border-red-500 "
+              }`}
             />
+            {errors.password && (
+              <span className="text-sm text-red-600 mt-1">
+                The Password field is required
+              </span>
+            )}
           </div>
           <div className="mb-2">
             <label className="mb-1 text-gray-600" htmlFor="email">
@@ -80,8 +112,16 @@ const Register = () => {
               type="password"
               name="cpassword"
               {...register("cpassword", { required: true })}
-              className="w-full px-3 py-2 border-2 transition-all duration-100 ease-linear focus-within:border-primaryColor rounded-lg outline-none"
+              className={`w-full px-3 py-2 border-2 transition-all duration-100 ease-linear focus-within:border-primaryColor rounded-lg outline-none  ${
+                errors.cpassword &&
+                "border-red-500 focus-within:border-red-500 "
+              }`}
             />
+            {errors.cpassword && (
+              <span className="text-sm text-red-600 mt-1">
+                The field is required
+              </span>
+            )}
           </div>
         </div>
         <button

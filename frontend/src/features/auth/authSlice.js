@@ -20,7 +20,7 @@ export const registerUser = createAsyncThunk(
       return await authService.register(userData);
     } catch (error) {
       console.log(error.response);
-      return thunkAPI.rejectWithValue("Error");
+      return thunkAPI.rejectWithValue(error?.response?.data?.error?.message);
     }
   }
 );

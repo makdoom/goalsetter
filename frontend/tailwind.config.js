@@ -10,6 +10,7 @@ module.exports = {
       },
       colors: {
         primaryColor: "#3b82f6",
+        secondaryColor: "#f6f6f6",
       },
       flex: {
         0.4: "0.4 0.4 0%",

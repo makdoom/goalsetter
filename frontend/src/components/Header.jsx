@@ -9,12 +9,12 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full  px-4 border-b border-gray-100 md:px-28 lg:px-48 py-1 flex justify-between items-center ">
+    <div className="w-full z-[9999] bg-white fixed top-0 left-0 right-0 backdrop-blur-md px-4 border-b border-gray-100 md:px-28 lg:px-48 py-1 flex justify-between items-center ">
       <h3 className="text-2xl md:text-3xl font-bold text-primaryColor tracking-wide">
         iNotes
       </h3>
       <div
-        className={`hidden md:flex border-2 items-center flex-1 md:flex-0.4 p-2 rounded-lg ${
+        className={`hidden lg:flex border-2 items-center flex-1 md:flex-0.4 p-2 rounded-lg ${
           isSearchActive && " border-blue-500"
         } `}
       >
