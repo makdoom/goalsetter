@@ -25,6 +25,19 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+// Login User
+export const loginUser = createAsyncThunk(
+  "auth/login",
+  async (userData, thunkAPI) => {
+    try {
+      return await authService.register(userData);
+    } catch (error) {
+      console.log(error.response);
+      return thunkAPI.rejectWithValue("Error");
+    }
+  }
+);
+
 // AuthSlice
 const authSlice = createSlice({
   name: "auth",
