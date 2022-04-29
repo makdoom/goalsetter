@@ -1,13 +1,15 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-
+import { BsX } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
-import { selectUser } from "../features/auth/authSlice";
+import { loginUser, reset, selectUser } from "../features/auth/authSlice";
 
 const Login = () => {
-  const { user } = useSelector(selectUser);
+  const { user, message, isSuccess, isError, isLoading } =
+    useSelector(selectUser);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // React hook form
   const {
@@ -19,12 +21,18 @@ const Login = () => {
   // Login Submit handler
   const submitHandler = (data) => {
     console.log(data);
-    // dispatch(registerUser(data));
+    dispatch(loginUser(data));
   };
 
   useEffect(() => {
     if (user) return navigate("/");
-  }, [navigate, user]);
+
+    if (isError || message) {
+      setTimeout(() => {
+        dispatch(reset());
+      }, 3500);
+    }
+  }, [navigate, user, isError, message, dispatch, reset]);
 
   return (
     <div className="w-screen border px-8 md:px-48 h-[93vh] flex justify-center items-center">
@@ -36,6 +44,16 @@ const Login = () => {
         <h3 className="uppercase text-4xl font-semibold tracking-wide text-primaryColor">
           Login
         </h3>
+        {message && (
+          <div className="flex justify-between items-center w-[90%] border mt-2 p-2 px-3 text-sm rounded-lg bg-red-100 text-red-600">
+            <p>{message}</p>
+            <BsX
+              fontSize={25}
+              className="cursor-pointer"
+              onClick={() => dispatch(reset())}
+            />
+          </div>
+        )}
         <div className="flex flex-col w-[90%] my-4 gap-3">
           <div className="mb-2">
             <label className="mb-1 text-gray-600" htmlFor="email">
