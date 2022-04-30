@@ -6,7 +6,7 @@ import { selectUser } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import ButtonSpinner from "../components/ButtonSpinner";
-import { createNote, selectNote } from "../features/notes/noteSlice";
+import { createNote, getNotes, selectNote } from "../features/notes/noteSlice";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -26,14 +26,16 @@ const Dashboard = () => {
     e.preventDefault();
     dispatch(createNote(note));
     setNote({ title: "", description: "" });
+    setShowModal(false);
   };
 
   useEffect(() => {
     if (!user) return navigate("/login");
-    if (isSuccess) setShowModal(false);
   }, [navigate, user, isSuccess, setShowModal]);
 
-  useEffect(() => {});
+  useEffect(() => {
+    dispatch(getNotes());
+  }, [dispatch, getNotes]);
 
   if (isLoading) return <Spinner />;
 

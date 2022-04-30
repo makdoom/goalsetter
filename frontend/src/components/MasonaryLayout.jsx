@@ -15,33 +15,13 @@ const breakPointsObj = {
 const MasonryLayout = () => {
   const { notes } = useSelector(selectNote);
   const dispatch = useDispatch();
+  console.log(notes);
 
   return (
     <Masonry className="flex animate-slide-fwd" breakpointCols={breakPointsObj}>
       {notes?.map((note) => (
-        <NoteCard key={note.note._id} note={note.note} />
+        <NoteCard key={note._id} note={note} />
       ))}
-      {/* {pins?.map((pin) => (
-          <Pin key={pin._id} pin={pin} className="w-max" />
-        ))} */}
-      {/* <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard />
-      <NoteCard /> */}
     </Masonry>
   );
 };

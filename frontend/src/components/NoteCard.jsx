@@ -3,11 +3,11 @@ import { FiEdit2 } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 
 const NoteCard = ({ note }) => {
+  // Date formatting
   const createdAt = new Date(note.createdAt);
   let date = `${createdAt.getDate()} ${createdAt.toLocaleString("default", {
     month: "short",
   })} ${createdAt.getFullYear()}`;
-  console.log(date);
 
   return (
     <div className="shadow-sm bg-white m-3 my-8 p-5 rounded-lg cursor-pointer transition-all duration-200 ease-linear hover:scale-105 hover:shadow-lg">
