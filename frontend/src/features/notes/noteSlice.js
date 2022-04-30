@@ -70,23 +70,6 @@ const noteSlice = createSlice({
         state.isLoading = false;
         state.message = action.payload;
       });
-    // .addCase(loginUser.pending, (state, action) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(loginUser.fulfilled, (state, action) => {
-    //   state.isSuccess = true;
-    //   state.isLoading = false;
-    //   state.user = action.payload;
-    // })
-    // .addCase(loginUser.rejected, (state, action) => {
-    //   state.isError = true;
-    //   state.isLoading = false;
-    //   state.message = action.payload;
-    //   state.user = null;
-    // });
-    // .addCase(logout.fulfilled, (state) => {
-    //   state.user = null;
-    // });
   },
 });
 
