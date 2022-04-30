@@ -5,25 +5,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import { createNote } from "../features/notes/noteSlice";
+import ButtonSpinner from "../components/ButtonSpinner";
+import { createNote, selectNote } from "../features/notes/noteSlice";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {
+    notes,
+    isSuccess,
+    isError,
+    isLoading: loading,
+  } = useSelector(selectNote);
 
   const [showModal, setShowModal] = useState(false);
   const { user, isLoading } = useSelector(selectUser);
-  const [note, setNote] = useState(null);
+  const [note, setNote] = useState({ title: "", description: "" });
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(note);
     dispatch(createNote(note));
+    setNote({ title: "", description: "" });
   };
 
   useEffect(() => {
     if (!user) return navigate("/login");
-  }, [navigate, user]);
+    if (isSuccess) setShowModal(false);
+  }, [navigate, user, isSuccess, setShowModal]);
+
+  useEffect(() => {});
 
   if (isLoading) return <Spinner />;
 
@@ -59,6 +69,7 @@ const Dashboard = () => {
                     <input
                       type="text"
                       name="title"
+                      value={note.title}
                       onChange={(e) =>
                         setNote({ ...note, title: e.target.value })
                       }
@@ -71,6 +82,7 @@ const Dashboard = () => {
                     </label>
                     <textarea
                       name="description"
+                      value={note.description}
                       onChange={(e) =>
                         setNote({ ...note, description: e.target.value })
                       }
@@ -83,9 +95,11 @@ const Dashboard = () => {
                 <div className="flex justify-center items-center p-6 space-x-2 rounded-b border-gray-200 ">
                   <button
                     type="submit"
+                    disabled={loading}
                     className="text-white bg-blue-500 hover:bg-blue-600 transition-all duration-200 ease-linear  focus:outline-none font-medium rounded-lg text-base px-5 py-2.5 text-center  "
                   >
                     Submit
+                    {loading && <ButtonSpinner />}
                   </button>
                 </div>
               </form>

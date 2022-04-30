@@ -10,7 +10,8 @@ const create = async (noteData, token) => {
     },
   };
   const { data } = await axios.post(API_URL, noteData, config);
-  console.log("Note Created", data);
+
+  if (data.statusCode === 200 && data.success) return data;
 };
 
 const noteService = { create };

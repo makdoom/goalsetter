@@ -2,7 +2,7 @@ const ButtonSpinner = () => {
   return (
     <svg
       role="status"
-      class="inline w-6 h-6 ml-4 text-gray-300 animate-spin  fill-white"
+      className="inline w-6 h-6 ml-4 text-gray-300 animate-spin  fill-white"
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

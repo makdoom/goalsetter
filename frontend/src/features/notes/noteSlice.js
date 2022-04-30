@@ -26,11 +26,46 @@ export const createNote = createAsyncThunk(
 const noteSlice = createSlice({
   name: "note",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: () => initialState,
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createNote.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createNote.fulfilled, (state, action) => {
+        state.isSuccess = true;
+        state.isLoading = false;
+        state.notes.push(action.payload);
+      })
+      .addCase(createNote.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoading = false;
+        state.message = action.payload;
+      });
+    // .addCase(loginUser.pending, (state, action) => {
+    //   state.isLoading = true;
+    // })
+    // .addCase(loginUser.fulfilled, (state, action) => {
+    //   state.isSuccess = true;
+    //   state.isLoading = false;
+    //   state.user = action.payload;
+    // })
+    // .addCase(loginUser.rejected, (state, action) => {
+    //   state.isError = true;
+    //   state.isLoading = false;
+    //   state.message = action.payload;
+    //   state.user = null;
+    // });
+    // .addCase(logout.fulfilled, (state) => {
+    //   state.user = null;
+    // });
+  },
 });
 
 export const selectNote = (state) => state.note;
 
-// export const { reset } = authSlice.actions;
+export const { reset } = noteSlice.actions;
 
 export default noteSlice.reducer;
