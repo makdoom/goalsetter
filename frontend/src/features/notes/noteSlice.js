@@ -66,7 +66,11 @@ const noteSlice = createSlice({
   name: "note",
   initialState,
   reducers: {
-    reset: () => initialState,
+    reset: (state) => {
+      state.isSuccess = false;
+      state.isError = false;
+      state.isLoading = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -77,6 +81,7 @@ const noteSlice = createSlice({
         state.isSuccess = true;
         state.isLoading = false;
         state.notes.push(action.payload);
+        state.message = "Note added successfully";
       })
       .addCase(createNote.rejected, (state, action) => {
         state.isError = true;
@@ -103,6 +108,7 @@ const noteSlice = createSlice({
         state.isSuccess = true;
         state.isLoading = false;
         state.notes = action.payload;
+        state.message = "Note updated successfully";
       })
       .addCase(updateNote.rejected, (state, action) => {
         state.isError = true;
@@ -116,6 +122,7 @@ const noteSlice = createSlice({
         state.isSuccess = true;
         state.isLoading = false;
         state.notes = action.payload;
+        state.message = "Note deleted successfully";
       })
       .addCase(deleteNote.rejected, (state, action) => {
         state.isError = true;

@@ -35,7 +35,7 @@ const NoteCard = ({ note }) => {
           <div className="text-2xl font-medium">{note.title}</div>
           <HiOutlineBookmark className="stroke-current text-blue-400 text-lg transition-all duration-200 ease-linear hover:text-blue-500 cursor-pointer hover:scale-110" />
         </div>
-        <p className="text-gray-600 text-base">{note.description}</p>
+        <p className="text-gray-600 text-[0.95rem]">{note.description}</p>
         <div className="mt-7 flex justify-between items-center">
           <div className="bg-blue-100 p-2 rounded-lg text-xs text-blue-600 font-medium">
             {date}

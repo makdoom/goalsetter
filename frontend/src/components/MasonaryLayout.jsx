@@ -25,7 +25,7 @@ const MasonryLayout = () => {
         <NoteModal showModal={showModal} setShowModal={setShowModal} />
       )}
       <Masonry
-        className="flex animate-slide-fwd"
+        className="flex pt-5 animate-slide-fwd"
         breakpointCols={breakPointsObj}
       >
         {notes?.map((note) => (
