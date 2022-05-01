@@ -16,7 +16,7 @@ const create = async (noteData, token) => {
 };
 
 // Fetch all notes
-const fetchNotes = async (token) => {
+const fetch = async (token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -27,5 +27,20 @@ const fetchNotes = async (token) => {
   if (data.statusCode === 200 && data.success) return data.notes;
 };
 
-const noteService = { create, fetchNotes };
+// Update Notes
+const update = async (id, note, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  await axios.put(`${API_URL}/${id}`, note, config);
+
+  const { data } = await axios.get(API_URL, config);
+  console.log(data);
+
+  if (data.statusCode === 200 && data.success) return data.notes;
+};
+
+const noteService = { create, fetch, update };
 export default noteService;

@@ -23,8 +23,9 @@ const NoteModal = ({ currentNote, isUpdate, showModal, setShowModal }) => {
     if (isUpdate) {
       dispatch(updateNote({ id: currentNote._id, note }));
       // return console.log("Update", currentNote._id, note);
+    } else {
+      dispatch(createNote(note));
     }
-    dispatch(createNote(note));
     setNote({ title: "", description: "" });
     setShowModal(false);
   };
