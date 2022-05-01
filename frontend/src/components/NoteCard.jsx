@@ -3,8 +3,11 @@ import { FiEdit2 } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import NoteModal from "./NoteModal";
 import { useState } from "react";
+import { deleteNote } from "../features/notes/noteSlice";
+import { useDispatch } from "react-redux";
 
 const NoteCard = ({ note }) => {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
   // Date formatting
@@ -16,6 +19,7 @@ const NoteCard = ({ note }) => {
   const updateNote = () => {
     setShowModal(!showModal);
   };
+
   return (
     <>
       {showModal && (
@@ -43,7 +47,10 @@ const NoteCard = ({ note }) => {
             >
               <FiEdit2 fontSize={16} />
             </div>
-            <div className="p-2 bg-red-200 text-red-500 font-semibold rounded-lg">
+            <div
+              onClick={() => dispatch(deleteNote(note._id))}
+              className="p-2 bg-red-200 text-red-500 font-semibold rounded-lg"
+            >
               <AiOutlineDelete fontSize={16} />
             </div>
           </div>
