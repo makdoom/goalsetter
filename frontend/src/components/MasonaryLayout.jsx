@@ -29,7 +29,12 @@ const MasonryLayout = () => {
         breakpointCols={breakPointsObj}
       >
         {notes?.map((note) => (
-          <NoteCard key={note._id} note={note} />
+          <NoteCard
+            showModal={showModal}
+            setShowModal={setShowModal}
+            key={note._id}
+            note={note}
+          />
         ))}
       </Masonry>
       <button

@@ -4,13 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { createNote, selectNote } from "../features/notes/noteSlice";
 import ButtonSpinner from "./ButtonSpinner";
 
-const NoteModal = ({ showModal, setShowModal }) => {
-  const [note, setNote] = useState({ title: "", description: "" });
+const NoteModal = ({ currentNote, isUpdate, showModal, setShowModal }) => {
+  const [note, setNote] = useState({
+    title: currentNote ? currentNote.title : "",
+    description: currentNote ? currentNote.description : "",
+  });
+  console.log(currentNote);
+  console.log("updatenote", note);
   const dispatch = useDispatch();
   const { isLoading: loading } = useSelector(selectNote);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (isUpdate) {
+      return console.log("Update");
+    }
     dispatch(createNote(note));
     setNote({ title: "", description: "" });
     setShowModal(false);
