@@ -35,6 +35,20 @@ export const getNotes = createAsyncThunk(
   }
 );
 
+// Update Note
+export const updateNote = createAsyncThunk(
+  "note/updateNote",
+  async ({ id, note }, thunkAPI) => {
+    try {
+      console.log("noteslice", id, note);
+      // const token = thunkAPI.getState().auth.user.token;
+      // return await noteService.fetchNotes(token);
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
 // Notes slice
 const noteSlice = createSlice({
   name: "note",

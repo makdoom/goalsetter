@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { HiOutlineX } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
-import { createNote, selectNote } from "../features/notes/noteSlice";
+import {
+  createNote,
+  selectNote,
+  updateNote,
+} from "../features/notes/noteSlice";
 import ButtonSpinner from "./ButtonSpinner";
 
 const NoteModal = ({ currentNote, isUpdate, showModal, setShowModal }) => {
@@ -17,7 +21,8 @@ const NoteModal = ({ currentNote, isUpdate, showModal, setShowModal }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (isUpdate) {
-      return console.log("Update");
+      dispatch(updateNote({ id: currentNote._id, note }));
+      // return console.log("Update", currentNote._id, note);
     }
     dispatch(createNote(note));
     setNote({ title: "", description: "" });
