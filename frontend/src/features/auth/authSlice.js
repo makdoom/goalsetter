@@ -37,6 +37,14 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+  try {
+    localStorage.removeItem("authUser");
+  } catch (error) {
+    console.log(error.response);
+    return thunkAPI.rejectWithValue(error?.response?.data?.error?.message);
+  }
+});
 
 // AuthSlice
 const authSlice = createSlice({
@@ -79,10 +87,10 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.message = action.payload;
         state.user = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null;
       });
-    // .addCase(logout.fulfilled, (state) => {
-    //   state.user = null;
-    // });
   },
 });
 

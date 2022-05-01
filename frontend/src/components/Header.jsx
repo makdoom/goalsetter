@@ -2,13 +2,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineSun, HiOutlineMenu } from "react-icons/hi";
 import { useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import { useSelector } from "react-redux";
-import { selectUser } from "../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../features/auth/authSlice";
+import { HiOutlineLogout } from "react-icons/hi";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [showNavigation, setShowNavigation] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const navigate = useNavigate();
   const { user } = useSelector(selectUser);
 
   return (
@@ -34,18 +37,31 @@ const Header = () => {
       )}
 
       <div className="hidden md:flex items-center gap-8 py-4">
-        <Link
-          to="register"
-          className="hover:text-primaryColor transition duration-200 ease-linear font-medium"
-        >
-          Register
-        </Link>
-        <Link
-          to="login"
-          className="hover:text-primaryColor transition duration-200 ease-linear font-medium"
-        >
-          Login
-        </Link>
+        {user ? (
+          <div className="flex justify-between items-center gap-x-3">
+            <h1 className="font-medium">Hello, {user?.name}</h1>
+            <HiOutlineLogout
+              fontSize={20}
+              onClick={() => dispatch(logout())}
+              className="cursor-pointer"
+            />
+          </div>
+        ) : (
+          <>
+            <Link
+              to="register"
+              className="hover:text-primaryColor transition duration-200 ease-linear font-medium"
+            >
+              Register
+            </Link>
+            <Link
+              to="login"
+              className="hover:text-primaryColor transition duration-200 ease-linear font-medium"
+            >
+              Login
+            </Link>
+          </>
+        )}
         <div className="border-l">
           <HiOutlineSun
             fontSize={25}

@@ -35,7 +35,7 @@ const Dashboard = () => {
     <div className="bg-secondaryColor pt-12">
       <div className=" relative w-full px-4 md:px8 xl:px-48 h-full min-h-[95vh]">
         {isSuccess && message && (
-          <div className="flex justify-between items-center fixed top-[80px] right-[190px] rounded-md shadow-md z-[999] bg-green-200 p-3 w-60 border">
+          <div className="flex justify-between items-center w-4/5  fixed top-[80px] right-[25px] sm:top-[80px] sm:right-[190px] rounded-md shadow-md z-[999] bg-green-200 p-3 sm:w-60 border">
             <p className="text-sm text-green-700 font-medium">{message}</p>
             <HiOutlineX
               className="text-green-700 font-medium cursor-pointer"
