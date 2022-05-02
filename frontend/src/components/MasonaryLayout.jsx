@@ -4,6 +4,7 @@ import Masonry from "react-masonry-css";
 import { useSelector } from "react-redux";
 import { selectNote } from "../features/notes/noteSlice";
 import NoteCard from "./NoteCard";
+import { IoBookmark } from "react-icons/io5";
 import NoteModal from "./NoteModal";
 
 const breakPointsObj = {
@@ -16,7 +17,7 @@ const breakPointsObj = {
 };
 
 const MasonryLayout = () => {
-  const { notes } = useSelector(selectNote);
+  const { notes, bookmarkedNote } = useSelector(selectNote);
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -24,19 +25,53 @@ const MasonryLayout = () => {
       {showModal && (
         <NoteModal showModal={showModal} setShowModal={setShowModal} />
       )}
-      <Masonry
-        className="flex pt-5 animate-slide-fwd"
-        breakpointCols={breakPointsObj}
-      >
-        {notes?.map((note) => (
-          <NoteCard
-            showModal={showModal}
-            setShowModal={setShowModal}
-            key={note._id}
-            note={note}
-          />
-        ))}
-      </Masonry>
+      {bookmarkedNote > 0 && (
+        <div className="pt-5">
+          <div className="ml-3 flex items-center">
+            <span className="font-semibold text-lg text-gray-500">
+              Bookmarked Notes
+            </span>
+          </div>
+          <Masonry
+            className="flex pt-3 animate-slide-fwd"
+            breakpointCols={breakPointsObj}
+          >
+            {notes?.map((note) =>
+              note?.isBookmarked ? (
+                <NoteCard
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                  key={note._id}
+                  note={note}
+                />
+              ) : null
+            )}
+          </Masonry>
+        </div>
+      )}
+      <div className={`${bookmarkedNote > 0 && "mt-8"} `}>
+        {bookmarkedNote > 0 && (
+          <span className="font-semibold text-lg ml-3 pt-20 text-gray-500">
+            Other Notes
+          </span>
+        )}
+        <Masonry
+          className="flex pt-3 animate-slide-fwd "
+          breakpointCols={breakPointsObj}
+        >
+          {notes?.map(
+            (note) =>
+              !note.isBookmarked && (
+                <NoteCard
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                  key={note._id}
+                  note={note}
+                />
+              )
+          )}
+        </Masonry>
+      </div>
       <button
         type="button"
         onClick={() => setShowModal(!showModal)}

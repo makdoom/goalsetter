@@ -1,4 +1,4 @@
-import { HiOutlineBookmark } from "react-icons/hi";
+import { HiOutlineBookmark, HiBookmark } from "react-icons/hi";
 import { FiEdit2 } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import NoteModal from "./NoteModal";
@@ -36,13 +36,20 @@ const NoteCard = ({ note }) => {
           setShowModal={setShowModal}
         />
       )}
-      <div className="shadow-sm bg-white m-3 my-8 p-5 rounded-lg cursor-pointer transition-all duration-200 ease-linear hover:scale-105 hover:shadow-lg">
+      <div className="shadow-sm m-3 my-5 bg-white p-5 rounded-lg cursor-pointer transition-all duration-200 ease-linear hover:scale-105 hover:shadow-lg">
         <div className="flex justify-between items-center mb-4">
-          <div className="text-2xl font-medium">{note.title}</div>
-          <HiOutlineBookmark
-            onClick={handleBookmarkedNote}
-            className="stroke-current text-blue-400 text-lg transition-all duration-200 ease-linear hover:text-blue-500 cursor-pointer hover:scale-110"
-          />
+          <div className="text-2xl font-medium ">{note.title}</div>
+          {note.isBookmarked ? (
+            <HiBookmark
+              onClick={handleBookmarkedNote}
+              className="stroke-current text-blue-400 text-xl transition-all duration-200 ease-linear hover:text-blue-500 cursor-pointer hover:scale-110"
+            />
+          ) : (
+            <HiOutlineBookmark
+              onClick={handleBookmarkedNote}
+              className="stroke-current text-blue-400 text-xl transition-all duration-200 ease-linear hover:text-blue-500 cursor-pointer hover:scale-110"
+            />
+          )}
         </div>
         <p className="text-gray-600 text-[0.95rem]">{note.description}</p>
         <div className="mt-7 flex justify-between items-center">

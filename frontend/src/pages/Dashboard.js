@@ -32,7 +32,7 @@ const Dashboard = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="bg-secondaryColor pt-12">
+    <div className="bg-secondaryColor pt-[5rem]">
       <div className=" relative w-full px-4 md:px8 xl:px-48 h-full min-h-[95vh]">
         {isSuccess && message && (
           <div className="flex justify-between items-center max-w-4/5  fixed top-[80px] right-[25px] sm:top-[80px] sm:right-[190px] rounded-md shadow-md z-[999] bg-green-200 p-3 border">

@@ -65,12 +65,14 @@ const bookmark = async (id, token, userData) => {
     },
   };
   console.log(userData);
-  await axios.post(`${API_URL}/${id}`, userData, config);
+  const bookmarkedNote = await axios.post(`${API_URL}/${id}`, userData, config);
+  console.log(bookmarkedNote);
 
   const { data } = await axios.get(API_URL, config);
   console.log(data);
 
-  if (data.statusCode === 200 && data.success) return data.notes;
+  if (data.statusCode === 200 && data.success)
+    return { notes: data.notes, message: bookmarkedNote.data.message };
 };
 
 const noteService = { create, fetch, update, remove, bookmark };

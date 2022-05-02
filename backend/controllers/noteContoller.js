@@ -63,7 +63,7 @@ const updateNote = async (req, res) => {
       new: true,
     });
 
-    res.status(200).json(updatedNote);
+    res.status(200).json({ note: updateNote, statusCode: 200, success: true });
   } catch (error) {
     next(error);
   }
@@ -125,7 +125,18 @@ const bookmarkNote = async (req, res, next) => {
       new: true,
     });
 
-    res.status(200).json(bookmarkedNote);
+    res
+      .status(200)
+      .json({
+        note: bookmarkNote,
+        statusCode: 200,
+        success: true,
+        message: `${
+          !req.body.isBookmarked
+            ? "Bookmarked remove successfully"
+            : "Bookmark added successfully"
+        }`,
+      });
   } catch (error) {
     next(error);
   }

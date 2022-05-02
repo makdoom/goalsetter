@@ -6,6 +6,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
+  bookmarkedNote: 0,
   message: "",
 };
 
@@ -67,6 +68,7 @@ export const bookmarkNote = createAsyncThunk(
   async ({ id, data }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
+      thunkAPI.rejectWithValue("Hello");
       return await noteService.bookmark(id, token, data);
     } catch (error) {
       return thunkAPI.rejectWithValue();
@@ -108,6 +110,9 @@ const noteSlice = createSlice({
         state.isSuccess = true;
         state.isLoading = false;
         state.notes = action.payload;
+        state.bookmarkedNote = action.payload.filter(
+          (note) => note.isBookmarked
+        ).length;
       })
       .addCase(getNotes.rejected, (state, action) => {
         state.isError = true;
@@ -148,8 +153,12 @@ const noteSlice = createSlice({
       .addCase(bookmarkNote.fulfilled, (state, action) => {
         state.isSuccess = true;
         state.isLoading = false;
-        state.notes = action.payload;
-        state.message = "Note Bookmarked successfully";
+        state.notes = action.payload.notes;
+        console.log(action.payload);
+        // state.bookmarkedNote = action.payload.notes.filter(
+        //   (note) => note.isBookmarked
+        // ).length;
+        state.message = action.payload.message;
       })
       .addCase(bookmarkNote.rejected, (state, action) => {
         state.isError = true;
