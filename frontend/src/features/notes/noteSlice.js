@@ -61,6 +61,19 @@ export const deleteNote = createAsyncThunk(
   }
 );
 
+// Bookmark Note
+export const bookmarkNote = createAsyncThunk(
+  "note/bookmarkNote",
+  async ({ id, data }, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await noteService.bookmark(id, token, data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
 // Notes slice
 const noteSlice = createSlice({
   name: "note",
@@ -125,6 +138,20 @@ const noteSlice = createSlice({
         state.message = "Note deleted successfully";
       })
       .addCase(deleteNote.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoading = false;
+        state.message = action.payload;
+      })
+      .addCase(bookmarkNote.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(bookmarkNote.fulfilled, (state, action) => {
+        state.isSuccess = true;
+        state.isLoading = false;
+        state.notes = action.payload;
+        state.message = "Note Bookmarked successfully";
+      })
+      .addCase(bookmarkNote.rejected, (state, action) => {
         state.isError = true;
         state.isLoading = false;
         state.message = action.payload;

@@ -3,6 +3,7 @@ const {
   createNote,
   updateNote,
   deleteNote,
+  bookmarkNote,
 } = require("../controllers/noteContoller");
 const protect = require("../middleware/authMiddelware");
 
@@ -19,5 +20,8 @@ router.put("/:id", protect, updateNote);
 
 // GET all goals
 router.delete("/:id", protect, deleteNote);
+
+// Bookmark goals
+router.post("/:id", protect, bookmarkNote);
 
 module.exports = router;

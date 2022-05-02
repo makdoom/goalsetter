@@ -101,4 +101,34 @@ const deleteNote = async (req, res) => {
   }
 };
 
-module.exports = { getNotes, createNote, updateNote, deleteNote };
+// @desc    bookmark note
+// @route   PORT /api/v1/note
+// @access  Private
+const bookmarkNote = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const note = await Note.findById(id);
+
+    if (!note) return next(new ErrorResponse("Note not found", 404));
+
+    // Check for user
+    if (!req.user) return next(new ErrorResponse("User not found", 404));
+
+    // Make sure only logged in user can update/delete goal
+    if (note.user.toString() !== req.user.id) {
+      return next(new ErrorResponse("User unauthorized", 404));
+    }
+
+    // Update the goal
+    const bookmarkedNote = await Note.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    res.status(200).json(bookmarkedNote);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getNotes, createNote, updateNote, deleteNote, bookmarkNote };

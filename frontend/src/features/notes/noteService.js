@@ -57,5 +57,21 @@ const remove = async (id, token) => {
   if (data.statusCode === 200 && data.success) return data.notes;
 };
 
-const noteService = { create, fetch, update, remove };
+// Delete Note
+const bookmark = async (id, token, userData) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  console.log(userData);
+  await axios.post(`${API_URL}/${id}`, userData, config);
+
+  const { data } = await axios.get(API_URL, config);
+  console.log(data);
+
+  if (data.statusCode === 200 && data.success) return data.notes;
+};
+
+const noteService = { create, fetch, update, remove, bookmark };
 export default noteService;
