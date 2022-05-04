@@ -17,7 +17,7 @@ const breakPointsObj = {
 };
 
 const MasonryLayout = () => {
-  const { notes, bookmarkedNote } = useSelector(selectNote);
+  const { notes, bookmarkedNote, searchTerm } = useSelector(selectNote);
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -36,16 +36,26 @@ const MasonryLayout = () => {
             className="flex pt-3 animate-slide-fwd"
             breakpointCols={breakPointsObj}
           >
-            {notes?.map((note) =>
-              note?.isBookmarked ? (
-                <NoteCard
-                  showModal={showModal}
-                  setShowModal={setShowModal}
-                  key={note._id}
-                  note={note}
-                />
-              ) : null
-            )}
+            {notes
+              .filter((note) => {
+                if (searchTerm === "") {
+                  return note;
+                } else if (
+                  note.title.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return note;
+                }
+              })
+              .map((note) =>
+                note?.isBookmarked ? (
+                  <NoteCard
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    key={note._id}
+                    note={note}
+                  />
+                ) : null
+              )}
           </Masonry>
         </div>
       )}
@@ -59,17 +69,27 @@ const MasonryLayout = () => {
           className="flex pt-3 animate-slide-fwd "
           breakpointCols={breakPointsObj}
         >
-          {notes?.map(
-            (note) =>
-              !note.isBookmarked && (
-                <NoteCard
-                  showModal={showModal}
-                  setShowModal={setShowModal}
-                  key={note._id}
-                  note={note}
-                />
-              )
-          )}
+          {notes
+            .filter((note) => {
+              if (searchTerm === "") {
+                return note;
+              } else if (
+                note.title.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return note;
+              }
+            })
+            .map(
+              (note) =>
+                !note.isBookmarked && (
+                  <NoteCard
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    key={note._id}
+                    note={note}
+                  />
+                )
+            )}
         </Masonry>
       </div>
       <button

@@ -6,6 +6,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
+  searchTerm: "",
   bookmarkedNote: 0,
   message: "",
 };
@@ -85,6 +86,9 @@ const noteSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
       state.isLoading = false;
+    },
+    setSearch: (state, action) => {
+      state.searchTerm = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -169,6 +173,6 @@ const noteSlice = createSlice({
 
 export const selectNote = (state) => state.note;
 
-export const { reset } = noteSlice.actions;
+export const { reset, setSearch } = noteSlice.actions;
 
 export default noteSlice.reducer;

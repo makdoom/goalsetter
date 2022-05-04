@@ -5,14 +5,22 @@ import { FiSearch } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../features/auth/authSlice";
 import { HiOutlineLogout } from "react-icons/hi";
+import { setSearch } from "../features/notes/noteSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user } = useSelector(selectUser);
 
   const [showNavigation, setShowNavigation] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const { user } = useSelector(selectUser);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const searchHandler = (e) => {
+    console.log(e.target.value);
+    setSearchTerm(e.target.value);
+    dispatch(setSearch(e.target.value));
+  };
 
   return (
     <div className="w-full z-[9999] bg-white fixed top-0 left-0 right-0 backdrop-blur-md px-4 border-b border-gray-100 md:px-28 lg:px-48 py-1 flex justify-between items-center ">
@@ -29,6 +37,8 @@ const Header = () => {
           <input
             placeholder="Search notes"
             type="text"
+            value={searchTerm}
+            onChange={searchHandler}
             className="px-2 flex-1 outline-none"
             onFocus={() => setIsSearchActive(!isSearchActive)}
             onBlur={() => setIsSearchActive(!isSearchActive)}
