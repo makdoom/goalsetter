@@ -154,10 +154,9 @@ const noteSlice = createSlice({
         state.isSuccess = true;
         state.isLoading = false;
         state.notes = action.payload.notes;
-        console.log(action.payload);
-        // state.bookmarkedNote = action.payload.notes.filter(
-        //   (note) => note.isBookmarked
-        // ).length;
+        state.bookmarkedNote = action.payload.notes.filter(
+          (note) => note.isBookmarked
+        ).length;
         state.message = action.payload.message;
       })
       .addCase(bookmarkNote.rejected, (state, action) => {
