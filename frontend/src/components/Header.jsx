@@ -72,12 +72,6 @@ const Header = () => {
             </Link>
           </>
         )}
-        <div className="border-l">
-          <HiOutlineSun
-            fontSize={25}
-            className="ml-4 cursor-pointer hover:text-primaryColor transition duration-200 ease-linear font-medium"
-          />
-        </div>
       </div>
 
       <div className="md:hidden py-4 flex items-center gap-3">
@@ -88,33 +82,41 @@ const Header = () => {
       </div>
       {showNavigation && (
         <div className="bg-white z-50 transition-all duration-150 ease-linear md:hidden absolute gap-4 flex flex-col shadow-md right-6 w-40 rounded-lg top-[75px] p-4 px-4 border">
-          <p
-            onClick={() => {
-              setShowNavigation(!showNavigation);
-              navigate("/register");
-            }}
-            className="hover:text-primaryColor transition duration-200 ease-linear font-medium"
-          >
-            Register
-          </p>
-          <p
-            onClick={() => {
-              setShowNavigation(!showNavigation);
-              navigate("/login");
-            }}
-            className="hover:text-primaryColor transition duration-200 ease-linear font-medium"
-          >
-            Login
-          </p>
-          <div className="flex hover:text-primaryColor items-center">
-            <p className="transition duration-200 ease-linear font-medium">
-              Darkmode
+          {!user && (
+            <>
+              <p
+                onClick={() => {
+                  setShowNavigation(!showNavigation);
+                  navigate("/register");
+                }}
+                className="hover:text-primaryColor transition duration-200 ease-linear font-medium"
+              >
+                Register
+              </p>
+              <p
+                onClick={() => {
+                  setShowNavigation(!showNavigation);
+                  navigate("/login");
+                }}
+                className="hover:text-primaryColor transition duration-200 ease-linear font-medium"
+              >
+                Login
+              </p>
+            </>
+          )}
+          {user && (
+            <p
+              onClick={() => {
+                setShowNavigation(!showNavigation);
+                dispatch(logout());
+                navigate("/login");
+              }}
+              className="hover:text-primaryColor flex justify-between items-center transition duration-200 ease-linear font-medium"
+            >
+              <h1 className="font-medium">Logout</h1>
+              <HiOutlineLogout fontSize={20} className="cursor-pointer" />
             </p>
-            <HiOutlineSun
-              fontSize={25}
-              className=" ml-2 cursor-pointer hover:text-primaryColor transition duration-200 ease-linear font-medium"
-            />
-          </div>
+          )}
         </div>
       )}
     </div>

@@ -4,7 +4,6 @@ import Masonry from "react-masonry-css";
 import { useSelector } from "react-redux";
 import { selectNote } from "../features/notes/noteSlice";
 import NoteCard from "./NoteCard";
-import { IoBookmark } from "react-icons/io5";
 import NoteModal from "./NoteModal";
 
 const breakPointsObj = {
