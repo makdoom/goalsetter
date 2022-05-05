@@ -11,7 +11,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector(selectUser);
-  const { isSuccess, message } = useSelector(selectNote);
+  const { notes, isSuccess, message } = useSelector(selectNote);
 
   useEffect(() => {
     if (!user) return navigate("/login");
