@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const connectDB = require("./config/db");
 const errorHandler = require("./utils/errorHandler");
 const createError = require("http-errors");
+const path = require("path");
 
 // Connection to DB
 connectDB();
@@ -26,6 +27,18 @@ app.use(async (req, res, next) => {
 });
 
 app.use(errorHandler);
+
+// Server frontend
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
+  app.get("*", (req, res) =>
+    res.sendFile(
+      path.resolve(__dirname, "../", "frontend", "build", "index.html")
+    )
+  );
+} else {
+  app.get("/", (req, res) => res.send("Please set environment to production"));
+}
 // Server lister
 app.listen(PORT, () =>
   console.log(`Server up & running at http://localhost:${PORT}`)
