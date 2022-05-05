@@ -22,15 +22,11 @@ app.use(morgan("dev"));
 app.use("/api/v1/users", require("./routes/userRoutes"));
 app.use("/api/v1/notes", require("./routes/noteRoutes"));
 
-app.use(async (req, res, next) => {
-  next(createError.NotFound("This route doesn't exists"));
-});
-
-app.use(errorHandler);
-
 // Server frontend
+__dirname = path.resolve();
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
+
   app.get("*", (req, res) =>
     res.sendFile(
       path.resolve(__dirname, "../", "frontend", "build", "index.html")
@@ -39,6 +35,12 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.get("/", (req, res) => res.send("Please set environment to production"));
 }
+
+app.use(errorHandler);
+
+app.use(async (req, res, next) => {
+  next(createError.NotFound("This route doesn't exists"));
+});
 // Server lister
 app.listen(PORT, () =>
   console.log(`Server up & running at http://localhost:${PORT}`)
